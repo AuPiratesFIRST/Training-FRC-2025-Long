@@ -79,7 +79,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    double track1 = CommandJoystick.getRawAxis(3);
+    double track2 = CommandJoystick.getRawAxis(1);  
+    leftFrontMotor.set(track1);
+    rightFrontMotor.set(track2);
+  }
 
   @Override
   public void testInit() {

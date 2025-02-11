@@ -20,17 +20,30 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final DriveTrainSubsystem m_DriveTrainSubsystem = new DriveTrainSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
+  private final CommandJoystick m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-
+      
+private final SendableChooser<command> m_chooser = new SendableChooser<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
-    configureBindings();
+    // Configure the button bindings
+    configureButtonBindings();
+
+    drivetrainSubsystem.setDefaultCommand(
+      new RunCommand(
+        () ->
+         drivetrainSubsystem.drive(
+           CommandJoystick.getRawAxis(3),
+           CommandJoystick.getRawAxis(1)
+         ),
+         drivetrainSubsystem
+      )
+    );
   }
+
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
